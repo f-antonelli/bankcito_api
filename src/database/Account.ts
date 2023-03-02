@@ -1,14 +1,17 @@
 import {
-  Entity,
   BaseEntity,
-  PrimaryGeneratedColumn,
   Column,
-  OneToOne,
-  JoinColumn,
   CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
+// eslint-disable-next-line import/no-cycle
+import Card from './Card';
 import User from './User';
 
 @Entity()
@@ -34,6 +37,9 @@ class Account extends BaseEntity {
   @OneToOne(() => User)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'user_id' })
   user!: User;
+
+  @OneToMany(() => Card, (card) => card.account)
+  cards!: Card[];
 }
 
 export default Account;

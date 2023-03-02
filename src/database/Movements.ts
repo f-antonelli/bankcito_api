@@ -6,6 +6,8 @@ import {
   ManyToOne,
   JoinColumn,
   OneToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 // eslint-disable-next-line import/no-cycle
@@ -37,6 +39,12 @@ class Movements extends BaseEntity {
 
   @Column({ type: 'text' })
   description!: number;
+
+  @CreateDateColumn()
+  created_at!: Date;
+
+  @UpdateDateColumn()
+  updated_at!: Date;
 
   @ManyToOne(() => Account)
   @JoinColumn({ name: 'account_id' })
