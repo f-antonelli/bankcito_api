@@ -22,8 +22,8 @@ class Account extends BaseEntity {
   @Column({ type: 'number' })
   balance!: number;
 
-  @Column({ type: 'number', length: 22 })
-  cbu!: number;
+  @Column({ type: 'text', length: 22 })
+  cbu!: string;
 
   @CreateDateColumn()
   created_at!: Date;

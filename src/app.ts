@@ -8,7 +8,7 @@ import corsOptions from './config/cors-options';
 import AppDataSource from './config/db-connection';
 import notFound from './middleware/not-found';
 
-dotenv.config({ path: '../.env' });
+dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
@@ -19,7 +19,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
   res.send('hello world');
 });
 

@@ -5,6 +5,7 @@ import User from '../database/User';
 import UserData from '../database/UserData';
 
 dotenv.config();
+
 const AppDataSource = new DataSource({
   type: 'postgres',
   host: 'localhost',
