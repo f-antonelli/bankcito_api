@@ -25,10 +25,10 @@ class Movements extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   operation_id!: string;
 
-  @Column({ type: 'number' })
+  @Column({ type: 'int' })
   amount!: number;
 
-  @Column({ type: 'text', length: 22 })
+  @Column({ type: 'text', width: 22 })
   sender!: string;
 
   @Column({

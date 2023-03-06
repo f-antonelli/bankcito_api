@@ -17,7 +17,7 @@ class Card extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   card_id!: string;
 
-  @Column({ type: 'number', length: 16 })
+  @Column({ type: 'int' })
   card_number!: number;
 
   @Column({ type: 'text', select: false })

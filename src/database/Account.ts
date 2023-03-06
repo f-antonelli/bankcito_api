@@ -19,13 +19,13 @@ class Account extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   account_id!: string;
 
-  @Column({ type: 'number', length: 12 })
+  @Column({ type: 'int' })
   acc_number!: number;
 
-  @Column({ type: 'number' })
+  @Column({ type: 'int' })
   balance!: number;
 
-  @Column({ type: 'text', length: 22 })
+  @Column({ type: 'text', width: 22 })
   cbu!: string;
 
   @CreateDateColumn()
