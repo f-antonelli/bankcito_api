@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
 
+import api from './api';
 import corsOptions from './config/cors-options';
 import AppDataSource from './config/db-connection';
 import notFound from './middleware/not-found';
@@ -19,13 +20,11 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
 
-app.get('/', (_, res) => {
-  res.send('hello world');
-});
+app.use('/api/v1', api);
 
 app.use(notFound);
 
 (async () => {
   await AppDataSource.initialize();
-  app.listen(() => console.log(`Listening on port ${PORT}`));
+  app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 })().catch((err) => console.log(err));
