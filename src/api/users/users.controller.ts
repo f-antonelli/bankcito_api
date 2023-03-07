@@ -29,7 +29,7 @@ export const createUserHandler = async (
     if (user) {
       return res.status(201).json({
         message: `New user ${username} created`,
-        user: [user.user_id, user.email, user.username],
+        user: { user_id: user.user_id, email: user.email, username: user.username },
       });
     }
 
