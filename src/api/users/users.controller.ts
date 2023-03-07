@@ -13,7 +13,7 @@ export const createUserHandler = async (
 
   try {
     const duplicate = await User.findOneBy({ username });
-
+    console.log(duplicate);
     if (duplicate) return res.status(409).json({ message: 'Duplicate username' });
 
     const hashedPwd = await bcrypt.hash(password, 10);
@@ -24,7 +24,14 @@ export const createUserHandler = async (
       password: hashedPwd,
     });
 
-    if (user) return res.status(201).json({ message: `New user ${username} created` });
+    await user.save();
+
+    if (user) {
+      return res.status(201).json({
+        message: `New user ${username} created`,
+        user: [user.user_id, user.email, user.username],
+      });
+    }
 
     return res.status(400).json({ message: 'Invalid user data received' });
   } catch (err) {
@@ -33,6 +40,12 @@ export const createUserHandler = async (
   // Check for duplicate username
 };
 
-export const getUserHandler = (req: Request, res: Response) => {
-  res.send(200);
+export const getUserHandler = async (req: Request, res: Response) => {
+  const users = await User.find();
+
+  if (!users?.length) {
+    return res.status(400).json({ message: 'No users found' });
+  }
+
+  return res.json(users);
 };

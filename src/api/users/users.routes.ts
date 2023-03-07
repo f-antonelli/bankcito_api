@@ -1,13 +1,13 @@
 import { RequestHandler, Router } from 'express';
 
 import validateRequest from '../../middleware/validate-request';
-import { createUserHandler } from './users.controller';
+import { createUserHandler, getUserHandler } from './users.controller';
 import { createUserSchema } from './users.schema';
 
 const router = Router();
 
 // GET
-router.get('/');
+router.get('/', getUserHandler as RequestHandler);
 
 // POST
 router.post('/', validateRequest(createUserSchema), createUserHandler as RequestHandler);

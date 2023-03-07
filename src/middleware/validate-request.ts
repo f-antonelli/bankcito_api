@@ -11,10 +11,12 @@ const validateRequest =
       });
 
       next();
-    } catch (error) {
-      if (error instanceof ZodError) {
+    } catch (err) {
+      if (err instanceof ZodError) {
         res.status(422);
-        next(error.errors);
+        const message = err.errors.map((a) => a.message);
+
+        res.json({ message });
       }
     }
   };

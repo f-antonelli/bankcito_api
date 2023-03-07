@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import api from './api';
 import corsOptions from './config/cors-options';
 import AppDataSource from './config/db-connection';
+import errorHandler from './middleware/error-handler';
 import notFound from './middleware/not-found';
 
 dotenv.config();
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use('/api/v1', api);
 
 app.use(notFound);
+app.use(errorHandler);
 
 (async () => {
   await AppDataSource.initialize();
