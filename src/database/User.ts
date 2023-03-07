@@ -9,13 +9,6 @@ import {
   BeforeUpdate,
 } from 'typeorm';
 
-// eslint-disable-next-line no-shadow
-enum UserRole {
-  ADMIN = 'admin',
-  GOD = 'god',
-  USER = 'user',
-}
-
 @Entity()
 class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -30,12 +23,8 @@ class User extends BaseEntity {
   @Column({ unique: true, type: 'text' })
   email!: string;
 
-  @Column({
-    type: 'enum',
-    enum: UserRole,
-    default: UserRole.USER,
-  })
-  role!: UserRole;
+  @Column({ type: 'text', default: 'user' })
+  role!: string;
 
   @Column({ default: true, type: 'boolean' })
   active!: boolean;
