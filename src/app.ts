@@ -1,10 +1,16 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import * as dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
 
+import api from './api';
 import corsOptions from './config/cors-options';
+import AppDataSource from './config/db-connection';
+import errorHandler from './middleware/error-handler';
 import notFound from './middleware/not-found';
+
+dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
@@ -15,12 +21,12 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('hello world');
-});
+app.use('/api/v1', api);
 
 app.use(notFound);
+app.use(errorHandler);
 
-app.listen(() => {
-  console.log(`Listening on port ${PORT}`);
-});
+(async () => {
+  await AppDataSource.initialize();
+  app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+})().catch((err) => console.log(err));
